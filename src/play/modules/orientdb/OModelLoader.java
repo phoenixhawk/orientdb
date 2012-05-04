@@ -26,7 +26,7 @@ import com.orientechnologies.orient.core.annotation.OVersion;
 import com.orientechnologies.orient.core.db.object.ODatabaseObjectTx;
 import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.id.ORecordId;
-import com.orientechnologies.orient.core.iterator.OObjectIteratorMultiCluster;
+import com.orientechnologies.orient.core.iterator.OObjectIteratorCluster;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
@@ -156,7 +156,7 @@ public class OModelLoader implements Factory {
         }
         return properties;
     }
-
+    
     Model.Property buildProperty(final Field field) {
         Model.Property modelProperty = new Model.Property();
         modelProperty.type = field.getType();
@@ -169,7 +169,7 @@ public class OModelLoader implements Factory {
 
                 @SuppressWarnings("unchecked")
                 public List<Object> list() {
-                    return toList((OObjectIteratorMultiCluster<Object>) ODB.openObjectDB().browseClass(field.getType()));
+                    return toList((OObjectIteratorCluster<Object>) (Object)ODB.openObjectDB().browseClass(field.getType()) );
                 }
             };
         }
@@ -183,7 +183,7 @@ public class OModelLoader implements Factory {
 
                     @SuppressWarnings("unchecked")
                     public List<Object> list() {
-                        return toList((OObjectIteratorMultiCluster<Object>) ODB.openObjectDB().browseClass(fieldType));
+                        return toList((OObjectIteratorCluster<Object>) (Object)ODB.openObjectDB().browseClass(fieldType));
                     }
                 };
 
@@ -243,7 +243,7 @@ public class OModelLoader implements Factory {
         throw new UnexpectedException("Cannot get the object @Id for an object of type " + clazz);
     }
 
-    protected List<Object> toList(OObjectIteratorMultiCluster<Object> result) {
+    protected List<Object> toList(OObjectIteratorCluster<Object> result) {
         List<Object> list = new ArrayList<Object>();
         for (Object obj : result) {
             list.add(obj);

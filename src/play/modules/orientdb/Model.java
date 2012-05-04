@@ -24,7 +24,7 @@ import com.orientechnologies.orient.core.db.object.ODatabaseObjectTx;
 import com.orientechnologies.orient.core.exception.ORecordNotFoundException;
 import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.id.ORecordId;
-import com.orientechnologies.orient.core.iterator.OObjectIteratorMultiCluster;
+import com.orientechnologies.orient.core.iterator.OObjectIteratorCluster;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 
 public class Model implements play.db.Model {
@@ -33,7 +33,7 @@ public class Model implements play.db.Model {
      * 
      * @return An OObjectIterator
      */
-    public static <T extends Model> OObjectIteratorMultiCluster<T> all() {
+    public static <T extends Model> OObjectIteratorCluster<T> all() {
         throw new UnsupportedOperationException("Model not enhanced.");
     }
 
